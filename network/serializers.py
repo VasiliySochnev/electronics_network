@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import NetworkLink, Product
+from .models import NetworkLink, Product, NetworkProduct
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,4 +17,10 @@ class NetworkLinkDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NetworkLink
+        fields = '__all__'
+
+
+class NetworkProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NetworkProduct
         fields = '__all__'
