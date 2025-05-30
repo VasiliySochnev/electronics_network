@@ -1,13 +1,16 @@
 from django.db import models
+from .utils import calculate_level
 
 
 class Product(models.Model):
-    """Модель товара."""
+    """Модель товара, представляющая конкретный товар с характеристиками."""
 
     name = models.CharField(
         max_length=255, blank=True, null=True, verbose_name="Название товара"
     )
-    model = models.CharField(max_length=100, blank=True, null=True, verbose_name="Модель товара")
+    model = models.CharField(
+        max_length=100, blank=True, null=True, verbose_name="Модель товара"
+    )
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -27,6 +30,7 @@ class Product(models.Model):
     )
 
     def __str__(self):
+        """Строковое представление товара: название и модель."""
         return f"{self.name} ({self.model})"
 
     class Meta:
@@ -36,28 +40,51 @@ class Product(models.Model):
 
 
 class NetworkLink(models.Model):
-    """Модель сетевого звена."""
+    """Модель сетевого звена, представляющая поставщика или посредника в сети."""
 
-    name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Название")
+    name = models.CharField(
+        max_length=255, blank=True, null=True, verbose_name="Название"
+    )
     email = models.EmailField()
-    country = models.CharField(max_length=100, blank=True, null=True, verbose_name="Страна")
+    country = models.CharField(
+        max_length=100, blank=True, null=True, verbose_name="Страна"
+    )
     city = models.CharField(max_length=100, blank=True, null=True, verbose_name="Город")
-    street = models.CharField(max_length=100, blank=True, null=True, verbose_name="Улица")
-    house_number = models.CharField(max_length=10, blank=True, null=True, verbose_name="Номер строения")
+    street = models.CharField(
+        max_length=100, blank=True, null=True, verbose_name="Улица"
+    )
+    house_number = models.CharField(
+        max_length=10, blank=True, null=True, verbose_name="Номер строения"
+    )
     products = models.ManyToManyField(
-        "Product", through="NetworkProduct", verbose_name="Товары"
+        "Product", through="NetworkProduct", blank=True, null=True, verbose_name="Товары"
     )
     supplier = models.ForeignKey(
-        'self',
+        "self",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='поставщик'
+        related_name="поставщик",  # Обратная связь на поставщика
     )
-    debt = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, verbose_name="Задолжность перед поставщиком")
+    debt = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0.00,
+        blank=True,
+        null=True,
+        verbose_name="Долг перед поставщиком",
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def level(self):
+        """
+        Вычисляет уровень сетевого звена в иерархии поставщиков с помощью вспомогательной функции.
+        """
+        return calculate_level(self)
+
     def __str__(self):
+        """Строковое представление: имя сетевого звена."""
         return self.name
 
     class Meta:
@@ -67,7 +94,10 @@ class NetworkLink(models.Model):
 
 
 class NetworkProduct(models.Model):
-    """Промежуточная модель для хранения количества каждого товара в сетевом звене."""
+    """
+    Промежуточная модель для связи товаров с сетевыми звеньями.
+    Хранит количество товара у конкретного сетевого звена.
+    """
 
     network_link = models.ForeignKey(
         "NetworkLink",
@@ -81,4 +111,5 @@ class NetworkProduct(models.Model):
     quantity = models.PositiveIntegerField(default=1, verbose_name="Количество")
 
     def __str__(self):
-        return f"{self.quantity} x {self.product.name} в сетевом звене {self.network_link.pk}"
+        """Строковое представление: количество товара и имя сетевого звена."""
+        return f"{self.quantity} x {self.product.name} в сетевом звене {self.network_link.name}"

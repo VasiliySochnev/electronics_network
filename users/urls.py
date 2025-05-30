@@ -1,13 +1,10 @@
 from django.urls import path
-from rest_framework.routers import DefaultRouter
 from rest_framework.permissions import AllowAny
-from users.apps import UsersConfig
-from users.views import UserViewSet
+from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView)
 
-
-app_name = UsersConfig.name
+from users.views import UserViewSet
 
 
 router = DefaultRouter()
@@ -25,6 +22,4 @@ urlpatterns = [
         TokenRefreshView.as_view(permission_classes=(AllowAny,)),
         name="token_refresh",
     ),
-]
-
-urlpatterns += router.urls
+] + router.urls
