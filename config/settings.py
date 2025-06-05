@@ -1,15 +1,17 @@
+import os
+from datetime import timedelta
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(override=True)
 
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-SECRET_KEY = "django-insecure-o)m6o_v33m%mb4dzb9+gg3t$z480tskcnksd+#)z^&9g)l5_3k"
+DEBUG = True if os.getenv("DEBUG") == "True" else False
 
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = ["*"]
 
 
 INSTALLED_APPS = [
@@ -21,8 +23,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "django_filters",
-    "networks",
+    "network",
     "users",
+    "rest_framework_simplejwt",
+    "import_export",
 ]
 
 MIDDLEWARE = [
@@ -36,9 +40,23 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
 }
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=7),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
 
 ROOT_URLCONF = "config.urls"
 
@@ -60,11 +78,15 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "OPTIONS": {"client_encoding": "utf8"},
+        "HOST": os.getenv("HOST"),
+        "PORT": os.getenv("PORT"),
     }
 }
 
@@ -84,6 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "users.User"
 
 LANGUAGE_CODE = "en-us"
 
@@ -92,7 +115,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 
 STATIC_URL = "static/"

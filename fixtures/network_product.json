@@ -1,0 +1,186 @@
+[
+  {
+    "model": "network.networklink",
+    "pk": 1,
+    "fields": {
+      "name": "ElectroFactory Ltd",
+      "email": "factory@mail.ru",
+      "country": "Россия",
+      "city": "Москва",
+      "street": "Заводская",
+      "house_number": "1"
+    }
+  },
+  {
+    "model": "network.networklink",
+    "pk": 2,
+    "fields": {
+      "name": "RetailChain Moscow",
+      "email": "retail.moscow@mail.ru",
+      "country": "Россия",
+      "city": "Москва",
+      "street": "Ленинская",
+      "house_number": "10",
+      "supplier": 1
+    }
+  },
+  {
+    "model": "network.networklink",
+    "pk": 3,
+    "fields": {
+      "name": "RetailChain SPB",
+      "email": "retail.spb@mail.ru",
+      "country": "Россия",
+      "city": "Санкт-Петербург",
+      "street": "Невский",
+      "house_number": "15",
+      "supplier": 1
+    }
+  },
+  {
+    "model": "network.networklink",
+    "pk": 4,
+    "fields": {
+      "name": "IP Ivanov",
+      "email": "ivanov@mail.ru",
+      "country": "Россия",
+      "city": "Казань",
+      "street": "Татарская",
+      "house_number": "8",
+      "supplier": 2
+    }
+  },
+  {
+    "model": "network.networklink",
+    "pk": 5,
+    "fields": {
+      "name": "IP Petrov",
+      "email": "petrov@mail.ru",
+      "country": "Россия",
+      "city": "Новосибирск",
+      "street": "Сибирская",
+      "house_number": "12",
+      "supplier": 3
+    }
+  },
+  {
+    "model": "network.product",
+    "pk": 1,
+    "fields": {
+      "name": "Телевизор",
+      "model": "T-1000",
+      "price": "45000.00",
+      "description": "4K Ultra HD Smart TV",
+      "release_date": "2024-01-10",
+      "amount_link": 100,
+      "network_link": 1
+    }
+  },
+  {
+    "model": "network.product",
+    "pk": 2,
+    "fields": {
+      "name": "Ноутбук",
+      "model": "X-500",
+      "price": "85000.00",
+      "description": "Игровой ноутбук с RTX 4060",
+      "release_date": "2024-03-01",
+      "amount_link": 70,
+      "network_link": 1
+    }
+  },
+  {
+    "model": "network.product",
+    "pk": 3,
+    "fields": {
+      "name": "Смартфон",
+      "model": "SmartMini",
+      "price": "29990.00",
+      "description": "Компактный смартфон с AMOLED-экраном",
+      "release_date": "2024-02-20",
+      "amount_link": 150,
+      "network_link": 1
+    }
+  },
+  {
+    "model": "network.networkproduct",
+    "pk": 1,
+    "fields": {
+      "network_link": 2,
+      "product": 1,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "network.networkproduct",
+    "pk": 2,
+    "fields": {
+      "network_link": 2,
+      "product": 2,
+      "quantity": 30
+    }
+  },
+  {
+    "model": "network.networkproduct",
+    "pk": 3,
+    "fields": {
+      "network_link": 2,
+      "product": 3,
+      "quantity": 40
+    }
+  },
+  {
+    "model": "network.networkproduct",
+    "pk": 4,
+    "fields": {
+      "network_link": 3,
+      "product": 1,
+      "quantity": 30
+    }
+  },
+  {
+    "model": "network.networkproduct",
+    "pk": 5,
+    "fields": {
+      "network_link": 3,
+      "product": 2,
+      "quantity": 25
+    }
+  },
+  {
+    "model": "network.networkproduct",
+    "pk": 6,
+    "fields": {
+      "network_link": 4,
+      "product": 1,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "network.networkproduct",
+    "pk": 7,
+    "fields": {
+      "network_link": 4,
+      "product": 3,
+      "quantity": 15
+    }
+  },
+  {
+    "model": "network.networkproduct",
+    "pk": 8,
+    "fields": {
+      "network_link": 5,
+      "product": 2,
+      "quantity": 5
+    }
+  },
+  {
+    "model": "network.networkproduct",
+    "pk": 9,
+    "fields": {
+      "network_link": 5,
+      "product": 3,
+      "quantity": 10
+    }
+  }
+]

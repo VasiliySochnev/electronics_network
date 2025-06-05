@@ -1,0 +1,53 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "email": "ivanov@mail.ru",
+      "first_name": "Иван",
+      "last_name": "Иванов",
+      "sur_name": "Иванович",
+      "phone": "+79991234567",
+      "city": "Москва",
+      "country": "Россия",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "password": "pbkdf2_sha256$390000$tybnl1ykHx6d6p5G9R9AQS$eUAYTn2U5dD5ilB2GH9w1wOkG7rjEuDNhxphcH9Z5Gs="
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "email": "petrova@mail.ru",
+      "first_name": "Анна",
+      "last_name": "Петрова",
+      "sur_name": null,
+      "phone": "+79997654321",
+      "city": "Санкт-Петербург",
+      "country": "Россия",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "password": "pbkdf2_sha256$390000$tybnl1ykHx6d6p5G9R9AQS$eUAYTn2U5dD5ilB2GH9w1wOkG7rjEuDNhxphcH9Z5Gs="
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "email": "smirnov@mail.ru",
+      "first_name": "Дмитрий",
+      "last_name": "Смирнов",
+      "sur_name": "Александрович",
+      "phone": "+79990001122",
+      "city": "Новосибирск",
+      "country": "Россия",
+      "is_active": true,
+      "is_staff": true,
+      "is_superuser": false,
+      "password": "pbkdf2_sha256$390000$tybnl1ykHx6d6p5G9R9AQS$eUAYTn2U5dD5ilB2GH9w1wOkG7rjEuDNhxphcH9Z5Gs="
+    }
+  }
+]
