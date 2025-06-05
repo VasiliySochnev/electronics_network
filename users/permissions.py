@@ -22,6 +22,6 @@ class IsActiveStaff(BasePermission):
         return (
             request.user
             and request.user.is_authenticated  # Пользователь должен быть авторизован
-            and request.user.is_staff          # Должен быть сотрудником (staff)
-            and request.user.is_active         # Должен быть активен
+            and request.user.is_staff  # Должен быть сотрудником (staff)
+            and request.user.is_active  # Должен быть активен
         )

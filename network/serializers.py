@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import NetworkLink, NetworkProduct, Product
 
 
@@ -19,7 +20,10 @@ class NetworkLinkSerializer(serializers.ModelSerializer):
     Добавляет вычисляемое поле 'level' и исключает поле 'debt',
     так как его нельзя обновлять через API.
     """
-    level = serializers.SerializerMethodField()  # Вычисляемое поле, не связанное напрямую с моделью
+
+    level = (
+        serializers.SerializerMethodField()
+    )  # Вычисляемое поле, не связанное напрямую с моделью
 
     class Meta:
         model = NetworkLink
@@ -38,7 +42,10 @@ class NetworkProductInlineSerializer(serializers.ModelSerializer):
     Отображает продукт и его количество.
     Используется в детализации NetworkLink.
     """
-    product = ProductSerializer()  # Вложенный сериализатор для отображения данных продукта
+
+    product = (
+        ProductSerializer()
+    )  # Вложенный сериализатор для отображения данных продукта
 
     class Meta:
         model = NetworkProduct
@@ -50,11 +57,14 @@ class NetworkLinkDetailSerializer(serializers.ModelSerializer):
     Детализированный сериализатор для модели NetworkLink.
     Отображает поставщика (в текстовом виде) и связанные продукты.
     """
-    supplier = serializers.StringRelatedField()  # Используется строковое представление связанного объекта
+
+    supplier = (
+        serializers.StringRelatedField()
+    )  # Используется строковое представление связанного объекта
     products = NetworkProductInlineSerializer(
         source="network_link_products",  # Связь с NetworkProduct по related_name
         many=True,
-        read_only=True
+        read_only=True,
     )
 
     class Meta:

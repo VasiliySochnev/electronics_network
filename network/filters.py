@@ -5,9 +5,10 @@ from .models import NetworkLink
 
 class NetworkLinkFilter(filters.FilterSet):
     """
-       Фильтр для модели NetworkLink, используемый в DRF вьюсетах
-       для фильтрации по стране и городу.
+    Фильтр для модели NetworkLink, используемый в DRF вьюсетах
+    для фильтрации по стране и городу.
     """
+
     # Фильтрация по точному совпадению названия страны (без учета регистра).
     country = filters.CharFilter(field_name="country", lookup_expr="iexact")
 

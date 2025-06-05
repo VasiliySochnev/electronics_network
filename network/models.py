@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 from .utils import calculate_level
 
 
@@ -57,7 +59,7 @@ class NetworkLink(models.Model):
         max_length=10, blank=True, null=True, verbose_name="Номер строения"
     )
     products = models.ManyToManyField(
-        "Product", through="NetworkProduct", blank=True, null=True, verbose_name="Товары"
+        "Product", through="NetworkProduct", blank=True, verbose_name="Товары"
     )
     supplier = models.ForeignKey(
         "self",
@@ -74,7 +76,9 @@ class NetworkLink(models.Model):
         null=True,
         verbose_name="Долг перед поставщиком",
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(
+        default=timezone.now, verbose_name="Дата создания"
+    )
 
     @property
     def level(self):

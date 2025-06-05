@@ -6,7 +6,6 @@ from rest_framework_simplejwt.views import (TokenObtainPairView,
 
 from users.views import UserViewSet
 
-
 router = DefaultRouter()
 router.register(r"users", UserViewSet, basename="user")
 

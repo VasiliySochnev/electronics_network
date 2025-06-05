@@ -24,7 +24,7 @@ class UserViewSet(viewsets.ModelViewSet):
         - Для создания (`create`) — доступ разрешён всем (AllowAny)
         - Для остальных действий — требуется аутентификация (IsAuthenticated)
         """
-        if self.action == 'create':
+        if self.action == "create":
             return [AllowAny()]
         return [IsAuthenticated()]
 

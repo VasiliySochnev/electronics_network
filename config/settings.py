@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "network",
     "users",
     "rest_framework_simplejwt",
+    "import_export",
 ]
 
 MIDDLEWARE = [

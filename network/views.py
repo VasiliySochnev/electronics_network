@@ -2,6 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 
 from users.permissions import IsActiveStaff
+
 from .filters import NetworkLinkFilter
 from .models import NetworkLink
 from .serializers import NetworkLinkDetailSerializer, NetworkLinkSerializer

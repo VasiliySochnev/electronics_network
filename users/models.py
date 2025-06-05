@@ -12,7 +12,7 @@ class UserManager(BaseUserManager):
         Создает и сохраняет пользователя с указанными email и паролем.
         """
         if not email:
-            raise ValueError('Email must be set')
+            raise ValueError("Email must be set")
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)  # хешируем пароль
@@ -23,21 +23,21 @@ class UserManager(BaseUserManager):
         """
         Создание обычного пользователя.
         """
-        extra_fields.setdefault('is_staff', False)
-        extra_fields.setdefault('is_superuser', False)
+        extra_fields.setdefault("is_staff", False)
+        extra_fields.setdefault("is_superuser", False)
         return self._create_user(email, password, **extra_fields)
 
     def create_superuser(self, email, password=None, **extra_fields):
         """
         Создание суперпользователя.
         """
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
 
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True.")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
 
         return self._create_user(email, password, **extra_fields)
 
@@ -48,7 +48,9 @@ class User(AbstractUser):
     """
 
     username = None  # Удаляем стандартное поле username
-    email = models.EmailField(unique=True, verbose_name="Email")  # Основной идентификатор
+    email = models.EmailField(
+        unique=True, verbose_name="Email"
+    )  # Основной идентификатор
 
     first_name = models.CharField(
         max_length=50, verbose_name="Имя", blank=True, null=True
@@ -62,9 +64,7 @@ class User(AbstractUser):
     phone = models.CharField(
         max_length=35, verbose_name="телефон", blank=True, null=True
     )
-    city = models.CharField(
-        max_length=100, verbose_name="город", blank=True, null=True
-    )
+    city = models.CharField(max_length=100, verbose_name="город", blank=True, null=True)
     country = models.CharField(
         max_length=100, verbose_name="страна", blank=True, null=True
     )

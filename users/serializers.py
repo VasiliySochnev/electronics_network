@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import User
 
 
@@ -13,7 +14,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = "__all__"  # Включаем все поля модели User
         extra_kwargs = {
-            "password": {"write_only": True}  # Пароль не отображается в сериализованных ответах
+            "password": {
+                "write_only": True
+            }  # Пароль не отображается в сериализованных ответах
         }
 
     def create(self, validated_data):
@@ -22,10 +25,12 @@ class UserSerializer(serializers.ModelSerializer):
         - Извлекает и хеширует пароль перед сохранением.
         - Создаёт экземпляр пользователя с использованием validated_data.
         """
-        password = validated_data.pop("password", None)  # Удаляем пароль из словаря validated_data
+        password = validated_data.pop(
+            "password", None
+        )  # Удаляем пароль из словаря validated_data
         user = User(**validated_data)  # Создаём пользователя без пароля
 
         if password:
-            user.set_password(password)  # Хешируем пароль безопасно
+            user.set_password(password)  # Хешируем пароль
         user.save()
         return user
